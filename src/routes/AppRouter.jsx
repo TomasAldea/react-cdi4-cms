@@ -1,21 +1,45 @@
-// src/components/AppRouter.js
 import React from 'react';
-import { Routes, Route, BrowserRouter, HashRouter, Navigate } from "react-router-dom"
-import { Home } from '../components/Home';
-import { About } from '../components/About';
-import { Header } from '../components/Header';
-import { Formulario } from '../components/Formulario';
-import { ImagenSimple } from '../components/Header';
-import { TextoSeo } from '../components/TextoSeo';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+const routeConfig = {
+  "/": ["Header", "HomePage", "Footer"],
+  "/about": ["Header", "AboutPage", "Footer"],
+  "/contact": ["Header", "ContactPage", "Footer"]
+};
 
 export const AppRouter = () => {
   return (
-    <HashRouter>
-        <Header/>
-        <Routes>
-            <Route path='/' element={<Home/>}/>
-        </Routes>
-    </HashRouter>
+    <Router>
+      <Routes>
+        {Object.entries(routeConfig).map(([path, components]) => (
+          <Route key={path} path={path} element={getComponentElements(components)} />
+        ))}
+      </Routes>
+    </Router>
   );
-}
+};
+
+const getComponentElements = (componentNames) => {
+  return (
+    <React.Fragment>
+      {componentNames.map((componentName, index) => {
+        const Component = componentsMap[componentName];
+        return <Component key={index} />;
+      })}
+    </React.Fragment>
+  );
+};
+
+const Header = () => <div>Header Content</div>;
+const HomePage = () => <div>HomePage Content</div>;
+const AboutPage = () => <div>AboutPage Content</div>;
+const ContactPage = () => <div>ContactPage Content</div>;
+const Footer = () => <div>Footer Content</div>;
+
+const componentsMap = {
+  Header,
+  HomePage,
+  AboutPage,
+  ContactPage,
+  Footer
+};
