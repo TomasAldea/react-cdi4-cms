@@ -7,17 +7,18 @@ function App() {
 
   const duples = [];
 
-  // Función asincrónica para cargar el JSON
+
   async function fetchData() {
     try {
-      const response = await fetch("/cms_content.json"); // Ruta relativa al archivo JSON en la carpeta pública
+      const response = await fetch("/cms_content.json");
       if (!response.ok) {
         throw new Error("Error al cargar el archivo JSON");
       }
 
       let { data } = await response.json();
 
-      // Quito las páginas duplicadas para simplificar el ejemplo
+      //! Quito las páginas duplicadas para simplificar el ejemplo
+      //! Tambien las url hardcodeadas y los redirects
       data = data.filter((element) => {
         if (
           !duples.includes(element.title) &&
@@ -26,9 +27,9 @@ function App() {
         ) {
           duples.push(element.title);
           element.data = JSON.parse(element.data);
-          return true; // Mantener este elemento en el nuevo array
+          return true;
         } else {
-          return false; // Descartar este elemento del nuevo array
+          return false;
         }
       });
 

@@ -6,7 +6,7 @@ export const Header = ({data}) => {
 
     useEffect(() => {
         setJsonData(data);
-    }, [])
+    }, [data])
     
   return (
     <nav className="header">

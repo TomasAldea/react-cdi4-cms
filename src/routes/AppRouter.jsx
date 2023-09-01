@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, BrowserRouter, HashRouter, Navigate } from "react-router-dom"
 import { Header } from "../components/Header";
+import { Herohome } from "../components/Herohome";
 
 export const AppRouter = ({data}) => {
   const [jsonData, setJsonData] = useState(null);
 
   useEffect(() => {
     setJsonData(data);
-  }, []);
+  }, [data]);
 
   return (
     <HashRouter>
@@ -19,7 +20,7 @@ export const AppRouter = ({data}) => {
               key={el.id}
               path={el.slug}
               element={getComponentElements(
-                el.data.modules.map((module) => module.idName)
+                el.data.modules
               )}
             />
           ))}
@@ -29,19 +30,19 @@ export const AppRouter = ({data}) => {
 };
 
 const getComponentElements = (componentNames) => {
+  //console.log(componentNames);
+  let arrayModules = componentNames.map((module) => module.idName);
   return (
     <React.Fragment>
       {componentNames.map((componentName, index) => {
-        const Component =
-          componentsMap[componentName.charAt(0).toUpperCase() + componentName.slice(1)];
-        return <Component key={index} />;
+        let toUperName = componentName.idName.charAt(0).toUpperCase() + componentName.idName.slice(1)
+        const Component = componentsMap[toUperName];
+        return <Component key={index} configData={componentName.config} elementsData={componentName.elements}/>;
       })}
     </React.Fragment>
   );
 };
 
-//? Esto serian componentes (modulos), con su css y demás
-const Herohome = () => <div>Herohome Content</div>;
 const Videolink = () => <div>Videolink Content</div>;
 const Textovideoimg = () => <div>Textovideoimg Content</div>;
 const Imgtext = () => <div>Imgtext Content</div>;
