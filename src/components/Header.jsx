@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
-export const Header = () => {
+export const Header = ({data}) => {
+    const [jsonData, setJsonData] = useState(null);
 
+    useEffect(() => {
+        setJsonData(data);
+    }, [])
+    
   return (
-    <section className="header">
+    <nav className="header">
       <ul>
-        <li>
-          <NavLink id="home" to="/">
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink id="about" to="/about">
-            about
-          </NavLink>
-        </li>
+        {jsonData &&
+          jsonData.map((el) => (
+            <li key={el.id}>
+              <NavLink to={el.slug}>{el.slug}</NavLink>
+            </li>
+          ))}
       </ul>
-    </section>
+    </nav>
   );
 };
