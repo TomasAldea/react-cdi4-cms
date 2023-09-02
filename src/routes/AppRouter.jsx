@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, BrowserRouter, HashRouter, Navigate } from "react-router-dom"
 import { Header } from "../components/Header";
 import { Herohome } from "../components/Herohome";
+import { Videolink } from "../components/Videolink";
+import { Galeria } from "../components/Galeria";
 
 export const AppRouter = ({data}) => {
   const [jsonData, setJsonData] = useState(null);
@@ -43,12 +45,10 @@ const getComponentElements = (componentNames) => {
   );
 };
 
-const Videolink = () => <div>Videolink Content</div>;
 const Textovideoimg = () => <div>Textovideoimg Content</div>;
 const Imgtext = () => <div>Imgtext Content</div>;
 const Instagram = () => <div>Instagram Content</div>;
 const Slidertorneos = () => <div>Slidertorneos Content</div>;
-const Galeria = () => <div>Galeria Content</div>;
 const Destacados = () => <div>Destacados Content</div>;
 const Clientes = () => <div>Clientes Content</div>;
 const Footer = () => <div>Footer Content</div>;
